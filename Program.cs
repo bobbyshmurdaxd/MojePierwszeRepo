@@ -34,11 +34,9 @@ class Program
                         int count = CountAdjacentBombs(board, x, y);
                         displayBoard[y, x] = count.ToString()[0];
 
-                        if (count > 0)
-                        {
-                            // Odkryj sąsiadujące puste pola.
+                        if (count > 0) // Odkryj sąsiadujące puste pola.
                             ExpandZeros(board, displayBoard, x, y);
-                        }
+                        
                         if (CheckWin(displayBoard, bombCount))
                         {
                             Console.WriteLine("Gratulacje! Wygrałeś!");
@@ -47,14 +45,10 @@ class Program
                     }
                 }
                 else
-                {
                     Console.WriteLine("Nieprawidłowe współrzędne. Spróbuj ponownie.");
-                }
             }
             else
-            {
                 Console.WriteLine("Nieprawidłowe dane wejściowe. Spróbuj ponownie.");
-            }
         }
         Console.ReadLine();
     }
@@ -86,12 +80,8 @@ class Program
 
         // Wypełnij planszę niewidocznymi polami.
         for (int i = 0; i < height; i++)
-        {
             for (int j = 0; j < width; j++)
-            {
                 displayBoard[i, j] = ' ';
-            }
-        }
         return displayBoard;
     }
 
@@ -106,9 +96,7 @@ class Program
         Console.Write("  ");
 
         for (int i = 0; i < width; i++)
-        {
             Console.Write($"{i} ");
-        }
 
         Console.WriteLine();
 
@@ -117,9 +105,8 @@ class Program
             Console.Write($"{i} ");
 
             for (int j = 0; j < width; j++)
-            {
                 Console.Write($"{board[i, j]} ");
-            }
+
             Console.WriteLine();
         }
     }
@@ -131,15 +118,10 @@ class Program
         int width = board.GetLength(1);
 
         for (int i = Math.Max(0, y - 1); i <= Math.Min(height - 1, y + 1); i++)
-        {
             for (int j = Math.Max(0, x - 1); j <= Math.Min(width - 1, x + 1); j++)
-            {
                 if (board[i, j] == '*')
-                {
                     count++;
-                }
-            }
-        }
+
         return count;
     }
 
@@ -149,20 +131,14 @@ class Program
         int width = board.GetLength(1);
 
         for (int i = Math.Max(0, y - 1); i <= Math.Min(height - 1, y + 1); i++)
-        {
             for (int j = Math.Max(0, x - 1); j <= Math.Min(width - 1, x + 1); j++)
-            {
                 if (displayBoard[i, j] == ' ' && board[i, j] != '*')
                 {
                     displayBoard[i, j] = CountAdjacentBombs(board, j, i).ToString()[0];
 
                     if (displayBoard[i, j] == '0')
-                    {
                         ExpandZeros(board, displayBoard, j, i);
-                    }
                 }
-            }
-        }
     }
 
     static bool CheckWin(char[,] displayBoard, int bombCount)
@@ -172,15 +148,9 @@ class Program
         int height = displayBoard.GetLength(0);
 
         for (int i = 0; i < height; i++)
-        {
             for (int j = 0; j < width; j++)
-            {
                 if (displayBoard[i, j] != ' ' && displayBoard[i, j] != '*')
-                {
                     uncoveredCount++;
-                }
-            }
-        }
 
         return uncoveredCount == width * height - bombCount;
     }
