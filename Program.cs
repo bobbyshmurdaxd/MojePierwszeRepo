@@ -6,7 +6,7 @@ class Program
     {
         int width = 10;
         int height = 10;
-        int bombCount = 16;
+        int bombCount = 50;
 
         char[,] board = InitializeBoard(width, height, bombCount);
         char[,] displayBoard = InitializeDisplayBoard(width, height);
